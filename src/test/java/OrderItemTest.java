@@ -4,7 +4,8 @@ import org.testng.annotations.Test;
 import ru.work.pages.*;
 
 import static com.codeborne.selenide.Condition.visible;
-import static ru.work.utils.UserBuilder.user;
+import static ru.work.utils.Builder.backpack;
+import static ru.work.utils.Builder.user;
 
 public class OrderItemTest extends BaseTest {
     ProductsPage productsPage = new ProductsPage();
@@ -20,7 +21,7 @@ public class OrderItemTest extends BaseTest {
                 .setPassword("secret_sauce")
                 .clickLogin();
         productsPage
-                .addItemToCart()
+                .addItemToCart(backpack)
                 .clickOnShoppingCart();
         yourCartPage
                 .clickOnCheckOutButton();
@@ -30,12 +31,13 @@ public class OrderItemTest extends BaseTest {
                 .setPostalCode(user.getPostalCode())
                 .clickOnContinueButton();
     }
-        @Test
-        void finishOrdering() {
-            overviewPage
-                    .clickOnFinish();
 
-            Assert.assertEquals(finishPage.getCompleteHeader(),"THANK YOU FOR YOUR ORDER");
-            finishPage.getPonyExpressPicture().shouldBe(visible);
-        }
+    @Test
+    void finishOrdering() {
+        overviewPage
+                .clickOnFinish();
+
+        Assert.assertEquals(finishPage.getCompleteHeader(), "THANK YOU FOR YOUR ORDER");
+        finishPage.getPonyExpressPicture().shouldBe(visible);
     }
+}

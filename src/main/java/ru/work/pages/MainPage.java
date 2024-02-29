@@ -9,7 +9,6 @@ import static java.time.Duration.ofSeconds;
 import static ru.work.AppConfig.baseURL;
 
 public class MainPage {
-    private final SelenideElement loginWrapper = $(".login_wrapper");
     private final SelenideElement userLogin = $("#user-name");
     private final SelenideElement userPassword = $("#password");
     private final SelenideElement loginButton = $("#login-button");

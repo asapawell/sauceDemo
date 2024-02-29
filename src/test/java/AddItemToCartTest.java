@@ -4,6 +4,8 @@ import org.testng.annotations.Test;
 import ru.work.pages.ProductsPage;
 import ru.work.pages.YourCartPage;
 
+import static ru.work.utils.Builder.*;
+
 public class AddItemToCartTest extends BaseTest {
     ProductsPage productsPage = new ProductsPage();
     YourCartPage yourCartPage = new YourCartPage();
@@ -19,7 +21,7 @@ public class AddItemToCartTest extends BaseTest {
     @Test()
     void shouldAddItemToCart() {
         productsPage
-                .addItemToCart()
+                .addItemToCart(backpack)
                 .clickOnShoppingCart();
         //проверка смены статуса у товара
         Assert.assertEquals(productsPage.getChangedItemText(), "REMOVE");

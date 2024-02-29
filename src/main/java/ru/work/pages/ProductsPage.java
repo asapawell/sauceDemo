@@ -2,10 +2,11 @@ package ru.work.pages;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import ru.work.utils.Builder;
+import ru.work.utils.Item;
 
-import java.time.Duration;
+import java.nio.Buffer;
 
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
 public class ProductsPage {
@@ -15,8 +16,6 @@ public class ProductsPage {
     private final ElementsCollection removeFromCartButtons = $$x("//button[text()='REMOVE']");
     private final SelenideElement shoppingCartLink = $(".shopping_cart_link");
     private final SelenideElement countOfShoppingCartItems = $(".shopping_cart_badge");
-    private final SelenideElement burgerMenu = $("#react-burger-menu-btn");
-    private final SelenideElement logOutButton = $x("//a[text()='Logout']");
 
     public String getSubTitle() {
         return subTitle.getText();
@@ -26,10 +25,34 @@ public class ProductsPage {
         return products.size();
     }
 
-    public ProductsPage addItemToCart() {
-
-        addToCardButtons.get(0).click();
-        return this;
+    public ProductsPage addItemToCart(Item item) {
+        return switch (item.getName()) {
+            case "Sauce Labs Backpack" -> {
+                addToCardButtons.get(0).click();
+                yield this;
+            }
+            case "Sauce Labs Bike Light" -> {
+                addToCardButtons.get(1).click();
+                yield this;
+            }
+            case "Sauce Labs Bolt T-Shirt" -> {
+                addToCardButtons.get(2).click();
+                yield this;
+            }
+            case "Sauce Labs Fleece Jacket" -> {
+                addToCardButtons.get(3).click();
+                yield this;
+            }
+            case "Sauce Labs Onesie" -> {
+                addToCardButtons.get(4).click();
+                yield this;
+            }
+            case "Test.allTheThings() T-Shirt (Red)" -> {
+                addToCardButtons.get(5).click();
+                yield this;
+            }
+            default -> this;
+        };
     }
 
     public String getChangedItemText() {
@@ -42,10 +65,6 @@ public class ProductsPage {
 
     public void clickOnShoppingCart() {
         shoppingCartLink.click();
-    }
-    public void logOut(){
-        burgerMenu.click();
-        logOutButton.shouldBe(visible);
     }
 
 }
