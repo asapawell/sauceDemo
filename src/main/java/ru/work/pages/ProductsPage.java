@@ -2,17 +2,14 @@ package ru.work.pages;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import ru.work.utils.Builder;
 import ru.work.utils.Item;
-
-import java.nio.Buffer;
 
 import static com.codeborne.selenide.Selenide.*;
 
 public class ProductsPage {
     private final SelenideElement subTitle = $(".product_label");
     private final ElementsCollection products = $$(".inventory_item");
-    private final ElementsCollection addToCardButtons = $$x("//button[text()='ADD TO CART']");
+    private final ElementsCollection addToCardButtons = $$x("//div[@class='pricebar']//button[contains(@class,'btn_inventory')]");
     private final ElementsCollection removeFromCartButtons = $$x("//button[text()='REMOVE']");
     private final SelenideElement shoppingCartLink = $(".shopping_cart_link");
     private final SelenideElement countOfShoppingCartItems = $(".shopping_cart_badge");
@@ -25,6 +22,7 @@ public class ProductsPage {
         return products.size();
     }
 
+    //метод без использования dataProvider
     public ProductsPage addItemToCart(Item item) {
         return switch (item.getName()) {
             case "Sauce Labs Backpack" -> {
@@ -67,4 +65,13 @@ public class ProductsPage {
         shoppingCartLink.click();
     }
 
+    //методы для использования dataProvider
+    public ProductsPage addItemFromDataProvider(int index) {
+        addToCardButtons.get(index).click();
+        return this;
+    }
+
+    public String getChangedItemTextFromDataProvider(int index) {
+        return removeFromCartButtons.get(index).getText();
+    }
 }

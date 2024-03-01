@@ -6,11 +6,11 @@ import static org.testng.Assert.assertEquals;
 public class LoginTest extends BaseTest {
     ProductsPage productsPage = new ProductsPage();
 
-    @Test
-    void shouldLogin() {
+    @Test(dataProvider = "inputData")
+    public void shouldLogin(String userName,String password) {
         mainPage
-                .setLogin("standard_user")
-                .setPassword("secret_sauce")
+                .setLogin(userName)
+                .setPassword(password)
                 .clickLogin();
         //Тесты, что после логина, мы попали на страницу с товарами.
         assertEquals(productsPage.getSubTitle(), "Products");

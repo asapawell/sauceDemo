@@ -11,15 +11,15 @@ public class AddItemToCartTest extends BaseTest {
     YourCartPage yourCartPage = new YourCartPage();
 
     @BeforeMethod
-    void login() {
+    public void login() {
         mainPage
                 .setLogin("standard_user")
                 .setPassword("secret_sauce")
                 .clickLogin();
     }
-
-    @Test()
-    void shouldAddItemToCart() {
+    //проверка добавления товара "Рюкзак" в корзину
+    @Test(priority = 1)
+    public void shouldAddItemToCart() {
         productsPage
                 .addItemToCart(backpack)
                 .clickOnShoppingCart();
@@ -31,5 +31,17 @@ public class AddItemToCartTest extends BaseTest {
         Assert.assertEquals(yourCartPage.getTitleText(), "Your Cart");
         //проверка, что добавили нужный товар
         Assert.assertEquals(yourCartPage.getAddedItems(), "Sauce Labs Backpack");
+    }
+    //Проверка для практики с DataProvider. Добавляем все оставшиеся товары по очереди.
+    @Test(priority = 2,dataProvider = "inputData")
+    public void shouldTestDataProvider(int index,String addedItem,String countOfAddedItems){
+        productsPage
+                .addItemFromDataProvider(index)
+                .clickOnShoppingCart();
+
+        Assert.assertEquals(productsPage.getChangedItemTextFromDataProvider(index),"REMOVE");
+        Assert.assertEquals(productsPage.getCountOfShoppingCartItems(), countOfAddedItems);
+        Assert.assertEquals(yourCartPage.getTitleText(), "Your Cart");
+        Assert.assertEquals(yourCartPage.getAddedItemsFromDataProvider(index), addedItem);
     }
 }

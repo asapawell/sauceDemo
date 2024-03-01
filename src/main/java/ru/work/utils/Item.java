@@ -15,7 +15,7 @@ public class Item {
     private final double cost;
     private static final double TAX = 8.01;
 
-    //метод расчета стоимости товара с налогом
+    //Метод расчета стоимости товара с налогом. Используется как ожидаемый результат в ответе метода сравнения.
     public static String getFinalCostWithTax(Item item) {
         double cost = item.getCost() * TAX / 100 + item.getCost();
         DecimalFormat decimalFormat = new DecimalFormat("#.##");

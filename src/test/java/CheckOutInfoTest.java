@@ -26,7 +26,7 @@ public class CheckOutInfoTest extends BaseTest {
                 .addItemToCart(backpack)
                 .clickOnShoppingCart();
     }
-
+    //вводим данные пользователя и проверяем, что попали на страницу Оформления заказа
     @Test
     void setUserInfo() {
         yourCartPage

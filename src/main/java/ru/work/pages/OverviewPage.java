@@ -21,6 +21,7 @@ public class OverviewPage {
     public String getAddedItem(){
         return items.get(0).getText();
     }
+    //метод для вытаскивания стоимости в строке
     public String getItemTotalCost(){
         String totalCost = null;
         String text = itemTotal.getText();
@@ -31,15 +32,16 @@ public class OverviewPage {
         }
         return totalCost;
     }
+    //метод для вытаскивания окончательной стоимости из строки с налогом
     public String getItemTotalCostWithTax(){
-        String totalCostWithTask = null;
+        String totalCostWithTax = null;
         String text = itemTotalCostWithTax.getText();
         Pattern pattern = Pattern.compile("\\$\\d{1,3}\\.\\d{2}");
         Matcher matcher = pattern.matcher(text);
         while (matcher.find()) {
-            totalCostWithTask =  matcher.group();
+            totalCostWithTax =  matcher.group();
         }
-        return totalCostWithTask;
+        return totalCostWithTax;
     }
     public void clickOnFinish(){
         finishButton.click();

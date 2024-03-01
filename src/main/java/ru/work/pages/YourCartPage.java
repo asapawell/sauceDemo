@@ -11,15 +11,21 @@ public class YourCartPage {
     private final ElementsCollection item = $$(".inventory_item_name");
     private final SelenideElement checkOutButton = $("a[href^='./checkout']");
 
-    public String getTitleText(){
+    public String getTitleText() {
         return title.getText();
     }
 
-    public String getAddedItems(){
+    public String getAddedItems() {
         return item.get(0).getText();
     }
-    public void clickOnCheckOutButton(){
+
+    public void clickOnCheckOutButton() {
         checkOutButton.click();
+    }
+
+    //метод для dataProvider
+    public String getAddedItemsFromDataProvider(int index) {
+        return item.get(index).getText();
     }
 
 }

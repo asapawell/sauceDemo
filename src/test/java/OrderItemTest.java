@@ -32,6 +32,7 @@ public class OrderItemTest extends BaseTest {
                 .clickOnContinueButton();
     }
 
+    //Проверяем что заказ прошел и что имеется эмблема пони экспресс.
     @Test
     void finishOrdering() {
         overviewPage
