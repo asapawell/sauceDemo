@@ -1,8 +1,6 @@
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
-import io.qameta.allure.Allure;
 import io.qameta.allure.Attachment;
-import io.qameta.allure.Epic;
 import org.testng.annotations.*;
 import ru.work.pages.MainPage;
 
