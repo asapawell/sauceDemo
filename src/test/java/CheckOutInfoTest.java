@@ -2,6 +2,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.work.pages.OverviewPage;
@@ -56,5 +57,11 @@ public class CheckOutInfoTest extends BaseTest {
         step("Проверяем что окончательная стоимость товара составляет " + getFinalCostWithTax(backpack),
                 () -> Assert.assertEquals(overviewPage.getItemTotalCostWithTax(),
                         getFinalCostWithTax(backpack)));
+    }
+
+    @AfterClass()
+    public void shouldRemoveItems() {
+        step("Удаляем товары из корзины", () ->
+                yourCartPage.removeAllItemsFromCart());
     }
 }

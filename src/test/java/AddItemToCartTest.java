@@ -2,8 +2,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import ru.work.pages.ProductsPage;
 import ru.work.pages.YourCartPage;
 
@@ -58,5 +57,11 @@ public class AddItemToCartTest extends BaseTest {
                 Assert.assertEquals(yourCartPage.getTitleText(), "Your Cart"));
         step("Проверяем, что был добавлен товар с названием " + addedItem, () ->
                 Assert.assertEquals(yourCartPage.getAddedItemsFromDataProvider(index), addedItem));
+    }
+
+    @AfterClass()
+    public void shouldRemoveItems() {
+        step("Удаляем товары из корзины", () ->
+                yourCartPage.removeAllItemsFromCart());
     }
 }
