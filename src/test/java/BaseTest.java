@@ -1,10 +1,14 @@
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.WebDriverRunner;
+import io.qameta.allure.Attachment;
 import org.testng.annotations.*;
 import ru.work.pages.MainPage;
 
 import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
 
 import static com.codeborne.selenide.Selenide.open;
+import static io.qameta.allure.Allure.step;
 import static ru.work.AppConfig.baseURL;
 
 public class BaseTest {
@@ -12,9 +16,16 @@ public class BaseTest {
 
     @BeforeMethod
     public void setUp() {
-        Configuration.browser = "firefox";
-        Configuration.browserSize = "1920x1080";
-        open(baseURL);
+        step("Открываем стартовую страницу " + baseURL, () -> {
+            Configuration.browser = "firefox";
+            Configuration.browserSize = "1920x1080";
+            open(baseURL);
+        });
+    }
+    @AfterMethod
+    @Attachment(value = "Screenshot", type = "text/html",fileExtension = "html")
+    public byte[] makeScreenshot(){
+        return WebDriverRunner.source().getBytes(StandardCharsets.UTF_8);
     }
 
     //Провайдер используется в тесте логина и в тесте добавления товара в корзину

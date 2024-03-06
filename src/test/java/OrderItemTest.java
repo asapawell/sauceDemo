@@ -1,12 +1,17 @@
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.work.pages.*;
 
 import static com.codeborne.selenide.Condition.visible;
+import static io.qameta.allure.Allure.step;
 import static ru.work.utils.Builder.backpack;
 import static ru.work.utils.Builder.user;
 
+@Epic("Покупка товара")
 public class OrderItemTest extends BaseTest {
     ProductsPage productsPage = new ProductsPage();
     YourCartPage yourCartPage = new YourCartPage();
@@ -14,8 +19,8 @@ public class OrderItemTest extends BaseTest {
     OverviewPage overviewPage = new OverviewPage();
     FinishPage finishPage = new FinishPage();
 
-    @BeforeMethod
-    void addItemToCart() {
+    @BeforeMethod(description = "Логинимся, добавляем Рюкзак в корзину, заполняем данные о пользователе, жмем на Continue")
+    public void addItemToCart() {
         mainPage
                 .setLogin("standard_user")
                 .setPassword("secret_sauce")
@@ -33,12 +38,16 @@ public class OrderItemTest extends BaseTest {
     }
 
     //Проверяем что заказ прошел и что имеется эмблема пони экспресс.
-    @Test
-    void finishOrdering() {
-        overviewPage
-                .clickOnFinish();
-
-        Assert.assertEquals(finishPage.getCompleteHeader(), "THANK YOU FOR YOUR ORDER");
-        finishPage.getPonyExpressPicture().shouldBe(visible);
+    @Feature("Отображение информации о заказе")
+    @Story("Пользователь успешно оформил заказ")
+    @Test(description = "Проверка, что заказ оформлен")
+    public void finishOrdering() {
+        step("Нажимаем на кнопку Finish", () ->
+                overviewPage
+                        .clickOnFinish());
+        step("Проверяем, что имеется заголовок \"THANK YOU FOR YOUR ORDER\"", () ->
+                Assert.assertEquals(finishPage.getCompleteHeader(), "THANK YOU FOR YOUR ORDER"));
+        step("Проверяем наличие картинки с логотипом PonyExpress", () ->
+                finishPage.getPonyExpressPicture().shouldBe(visible));
     }
 }
