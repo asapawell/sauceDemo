@@ -5,6 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.work.Setup;
 import ru.work.pages.OverviewPage;
 import ru.work.pages.ProductsPage;
 import ru.work.pages.YourCartPage;
@@ -16,7 +17,7 @@ import static ru.work.utils.Builder.user;
 import static ru.work.utils.Item.getFinalCostWithTax;
 
 @Epic("Покупка товара")
-public class CheckOutInfoTest extends BaseTest {
+public class CheckOutInfoTest extends Setup {
     ProductsPage productsPage = new ProductsPage();
     YourCartPage yourCartPage = new YourCartPage();
     YourInformationPage yourInformationPage = new YourInformationPage();

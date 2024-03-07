@@ -2,13 +2,14 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
+import ru.work.Setup;
 import ru.work.pages.ProductsPage;
 
 import static io.qameta.allure.Allure.step;
 import static org.testng.Assert.assertEquals;
 
 @Epic("Покупка товара")
-public class LoginTest extends BaseTest {
+public class LoginTest extends Setup {
     ProductsPage productsPage = new ProductsPage();
 
     @Feature("Авторизация")
@@ -25,7 +26,7 @@ public class LoginTest extends BaseTest {
         //Тесты, что после логина, мы попали на страницу с товарами.
         step("Проверка успешного логина. Имеется заголовок Products", () ->
                 assertEquals(productsPage.getSubTitle(), "Products"));
-        step("Проверка, что при на странице Products, имеется 6 товаров", () ->
+        step("Проверка, что на странице Products, имеется 6 товаров", () ->
                 assertEquals(productsPage.getCountOfItems(), 6));
 
     }

@@ -3,14 +3,16 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.Assert;
 import org.testng.annotations.*;
+import ru.work.Setup;
 import ru.work.pages.ProductsPage;
 import ru.work.pages.YourCartPage;
 
 import static io.qameta.allure.Allure.step;
 import static ru.work.utils.Builder.*;
 
+
 @Epic("Покупка товара")
-public class AddItemToCartTest extends BaseTest {
+public class AddItemToCartTest extends Setup {
     ProductsPage productsPage = new ProductsPage();
     YourCartPage yourCartPage = new YourCartPage();
 

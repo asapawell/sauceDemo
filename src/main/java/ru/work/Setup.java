@@ -1,34 +1,42 @@
+package ru.work;
+
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.WebDriverRunner;
-import io.qameta.allure.Attachment;
-import org.testng.annotations.*;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.DataProvider;
 import ru.work.pages.MainPage;
 
 import java.lang.reflect.Method;
-import java.nio.charset.StandardCharsets;
 
 import static com.codeborne.selenide.Selenide.open;
 import static io.qameta.allure.Allure.step;
 import static ru.work.AppConfig.baseURL;
 
-public class BaseTest {
-    MainPage mainPage = new MainPage();
+public class Setup {
+    public MainPage mainPage = new MainPage();
+
+    @BeforeSuite
+    public void setupAllureReports() {
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
+
+        // or for fine-tuning:
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
+                .screenshots(true)
+                .savePageSource(false)
+        );
+    }
 
     @BeforeMethod
-    public void setUp() {
+    public void init() {
         step("Открываем стартовую страницу " + baseURL, () -> {
             Configuration.browser = "firefox";
             Configuration.browserSize = "1920x1080";
             open(baseURL);
         });
     }
-    @AfterMethod
-    @Attachment(value = "Screenshot", type = "text/html",fileExtension = "html")
-    public byte[] makeScreenshot(){
-        return WebDriverRunner.source().getBytes(StandardCharsets.UTF_8);
-    }
 
-    //Провайдер используется в тесте логина и в тесте добавления товара в корзину
     @DataProvider(name = "inputData")
     public Object[][] getDataFromDataProvider(Method method) {
         if (method.getName().equalsIgnoreCase(("shouldLogin"))) {

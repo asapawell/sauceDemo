@@ -4,6 +4,7 @@ import io.qameta.allure.Story;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.work.Setup;
 import ru.work.pages.*;
 
 import static com.codeborne.selenide.Condition.visible;
@@ -12,7 +13,7 @@ import static ru.work.utils.Builder.backpack;
 import static ru.work.utils.Builder.user;
 
 @Epic("Покупка товара")
-public class OrderItemTest extends BaseTest {
+public class OrderItemTest extends Setup {
     ProductsPage productsPage = new ProductsPage();
     YourCartPage yourCartPage = new YourCartPage();
     YourInformationPage yourInformationPage = new YourInformationPage();
