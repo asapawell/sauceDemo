@@ -3,6 +3,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.Assert;
 import org.testng.annotations.*;
+import ru.work.DataProviderClass;
 import ru.work.Setup;
 import ru.work.pages.ProductsPage;
 import ru.work.pages.YourCartPage;
@@ -34,8 +35,8 @@ public class AddItemToCartTest extends Setup {
                         .clickOnShoppingCart());
         step("Проверяем, что у товара кнопка Add to Cart поменялась на Remove", () ->
                 Assert.assertEquals(productsPage.getChangedItemText(), "REMOVE"));
-        step("Проверяем, что у корзины появился счетчик и он равен количеству добавленных товаров (1)", () ->
-                Assert.assertEquals(productsPage.getCountOfShoppingCartItems(), "1"));
+        step("Проверяем, что у корзины появился счетчик и он равен количеству добавленных товаров (1)",
+                () -> Assert.assertEquals(productsPage.getCountOfShoppingCartItems(), "1"));
         step("Проверяем переход в корзину", () ->
                 Assert.assertEquals(yourCartPage.getTitleText(), "Your Cart"));
         step("Проверяем, что был добавлен товар с названием " + backpack.getName(), () ->
@@ -45,7 +46,8 @@ public class AddItemToCartTest extends Setup {
     //Проверка для практики с DataProvider
     @Feature("Добавление товара в корзину")
     @Story("Добавление через Data Provider")
-    @Test(priority = 2, dataProvider = "inputData", description = "Проверка добавления товара в корзину")
+    @Test(priority = 2, dataProvider = "itemsDataProvider", dataProviderClass = DataProviderClass.class,
+            description = "Проверка добавления товара в корзину",groups = "a")
     public void shouldTestDataProvider(int index, String addedItem, String countOfAddedItems) {
         step("Добавить товар " + addedItem + " в корзину", () ->
                 productsPage
@@ -54,14 +56,15 @@ public class AddItemToCartTest extends Setup {
         step("Проверяем, что у товара кнопка Add to Cart поменялась на Remove", () ->
                 Assert.assertEquals(productsPage.getChangedItemTextFromDataProvider(index), "REMOVE"));
         step("Проверяем, что у корзины появился счетчик и он равен количеству добавленных товаров" + " "
-                + countOfAddedItems, () -> Assert.assertEquals(productsPage.getCountOfShoppingCartItems(), countOfAddedItems));
+                + countOfAddedItems, () -> Assert.assertEquals(productsPage.getCountOfShoppingCartItems(),
+                countOfAddedItems));
         step("Проверяем переход в корзину", () ->
                 Assert.assertEquals(yourCartPage.getTitleText(), "Your Cart"));
         step("Проверяем, что был добавлен товар с названием " + addedItem, () ->
                 Assert.assertEquals(yourCartPage.getAddedItemsFromDataProvider(index), addedItem));
     }
 
-    @AfterClass()
+    @AfterClass(description = "Очистка корзины")
     public void shouldRemoveItems() {
         step("Удаляем товары из корзины", () ->
                 yourCartPage.removeAllItemsFromCart());

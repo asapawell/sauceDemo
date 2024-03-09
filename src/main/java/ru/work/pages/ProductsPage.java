@@ -2,7 +2,7 @@ package ru.work.pages;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import ru.work.utils.Item;
+import ru.work.models.Item;
 
 import static com.codeborne.selenide.Selenide.*;
 

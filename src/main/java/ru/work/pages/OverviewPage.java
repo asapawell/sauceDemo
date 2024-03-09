@@ -6,8 +6,7 @@ import com.codeborne.selenide.SelenideElement;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.*;
 
 public class OverviewPage {
     private final SelenideElement subTitle = $(".subheader");
@@ -15,6 +14,7 @@ public class OverviewPage {
     private final SelenideElement itemTotal = $(".summary_subtotal_label");
     private final SelenideElement itemTotalCostWithTax = $(".summary_total_label");
     private final SelenideElement finishButton = $("a[href^='./checkout']");
+    private final SelenideElement toCart = $x("//div[@id='shopping_cart_container']/a");
     public String getSubTitle(){
         return subTitle.getText();
     }
@@ -45,5 +45,8 @@ public class OverviewPage {
     }
     public void clickOnFinish(){
         finishButton.click();
+    }
+    public void clickOnCart(){
+        toCart.click();
     }
 }

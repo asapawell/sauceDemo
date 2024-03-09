@@ -3,6 +3,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.work.Setup;
@@ -14,7 +15,7 @@ import ru.work.pages.YourInformationPage;
 import static io.qameta.allure.Allure.step;
 import static ru.work.utils.Builder.backpack;
 import static ru.work.utils.Builder.user;
-import static ru.work.utils.Item.getFinalCostWithTax;
+import static ru.work.models.Item.getFinalCostWithTax;
 
 @Epic("Покупка товара")
 public class CheckOutInfoTest extends Setup {
@@ -37,7 +38,7 @@ public class CheckOutInfoTest extends Setup {
     //вводим данные пользователя и проверяем, что попали на страницу Оформления заказа
     @Feature("Заполнение данных для отправки")
     @Story("Указание имени, фамилии, почтового индекса")
-    @Test(description = "Проверка заполнения обязательных полей")
+    @Test(description = "Проверка заполнения обязательных полей",groups = "a")
     public void setUserInfo() {
         step("Нажимаем на кнопку Checkout", () ->
                 yourCartPage
@@ -59,8 +60,13 @@ public class CheckOutInfoTest extends Setup {
                 () -> Assert.assertEquals(overviewPage.getItemTotalCostWithTax(),
                         getFinalCostWithTax(backpack)));
     }
+    @AfterMethod(description = "После теста переходим в корзину, для удаления товаров")
+    public void toCart(){
+        step("Нажимаем на корзину",()->
+        overviewPage.clickOnCart());
+    }
 
-    @AfterClass()
+    @AfterClass(description = "Очистка корзины")
     public void shouldRemoveItems() {
         step("Удаляем товары из корзины", () ->
                 yourCartPage.removeAllItemsFromCart());

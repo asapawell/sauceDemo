@@ -1,12 +1,10 @@
-package ru.work.utils;
+package ru.work.models;
 
 import lombok.Builder;
 import lombok.Getter;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-
-import static ru.work.utils.Builder.backpack;
 
 @Builder
 @Getter

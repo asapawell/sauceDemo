@@ -2,11 +2,8 @@ package ru.work.pages;
 
 import com.codeborne.selenide.SelenideElement;
 
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
-import static java.time.Duration.ofSeconds;
-import static ru.work.AppConfig.baseURL;
+
 
 public class MainPage {
     private final SelenideElement userLogin = $("#user-name");

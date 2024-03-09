@@ -1,4 +1,4 @@
-package ru.work.utils;
+package ru.work.models;
 
 import lombok.Builder;
 import lombok.Getter;

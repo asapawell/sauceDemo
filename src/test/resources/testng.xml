@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Smoke Tests">
+    <test verbose="2" preserve-order="true" name="Login">
+        <classes>
+            <class name="LoginTest"></class>
+        </classes>
+    </test>
+    <test verbose="2" preserve-order="true" name="Add item">
+        <classes>
+            <class name="AddItemToCartTest"></class>
+        </classes>
+    </test>
+    <test verbose="2" preserve-order="true" name="Checkout info">
+        <classes>
+            <class name="CheckOutInfoTest"></class>
+        </classes>
+    </test>
+    <test verbose="2" preserve-order="true" name="Order item">
+        <classes>
+            <class name="OrderItemTest"></class>
+        </classes>
+    </test>
+</suite>

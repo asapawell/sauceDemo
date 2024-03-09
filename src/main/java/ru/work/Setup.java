@@ -3,12 +3,9 @@ package ru.work;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.DataProvider;
+import org.testng.annotations.*;
 import ru.work.pages.MainPage;
 
-import java.lang.reflect.Method;
 
 import static com.codeborne.selenide.Selenide.open;
 import static io.qameta.allure.Allure.step;
@@ -35,26 +32,5 @@ public class Setup {
             Configuration.browserSize = "1920x1080";
             open(baseURL);
         });
-    }
-
-    @DataProvider(name = "inputData")
-    public Object[][] getDataFromDataProvider(Method method) {
-        if (method.getName().equalsIgnoreCase(("shouldLogin"))) {
-            return new Object[][]
-                    {
-                            {"standard_user", "secret_sauce"},
-                            {"locked_out_user", "secret_sauce"},
-                            {"problem_user", "secret_sauce"},
-                            {"performance_glitch_user", "secret_sauce"}
-                    };
-        } else {
-            return new Object[][]{
-                    {1, "Sauce Labs Bike Light", "2"},
-                    {2, "Sauce Labs Bolt T-Shirt", "3"},
-                    {3, "Sauce Labs Fleece Jacket", "4"},
-                    {4, "Sauce Labs Onesie", "5"},
-                    {5, "Test.allTheThings() T-Shirt (Red)", "6"}
-            };
-        }
     }
 }

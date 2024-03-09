@@ -1,6 +1,8 @@
 package ru.work.utils;
 
 import com.github.javafaker.Faker;
+import ru.work.models.Item;
+import ru.work.models.User;
 
 
 public class Builder {
@@ -10,8 +12,7 @@ public class Builder {
             .lastName(faker.name().lastName())
             .postalCode(String.valueOf(faker.number().randomNumber(6, false)))
             .build();
-    //Билдер для сущности товара. Использовал только рюкзак для теста. Можно убрать сущность Item, использовать
-    //данные из провайдера. Можно в провайдер добавить объекты.
+
     public static Item backpack = Item.builder()
             .name("Sauce Labs Backpack")
             .cost(29.99)
