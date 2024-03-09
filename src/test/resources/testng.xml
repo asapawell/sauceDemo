@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Smoke Tests">
-    <test verbose="2" preserve-order="true" name="Login">
+    <listeners>
+        <listener class-name="ru.work.listeners.CustomListener"/>
+    </listeners>
+    <test verbose="2" name="Login">
         <classes>
-            <class name="LoginTest"></class>
+            <class name="LoginTest"/>
         </classes>
     </test>
-    <test verbose="2" preserve-order="true" name="Add item">
+    <test verbose="2" name="Add item">
         <classes>
-            <class name="AddItemToCartTest"></class>
+            <class name="AddItemToCartTest"/>
         </classes>
     </test>
-    <test verbose="2" preserve-order="true" name="Checkout info">
+    <test verbose="2" name="Checkout info">
         <classes>
-            <class name="CheckOutInfoTest"></class>
+            <class name="CheckOutInfoTest"/>
         </classes>
     </test>
-    <test verbose="2" preserve-order="true" name="Order item">
+    <test verbose="2" name="Order item">
         <classes>
-            <class name="OrderItemTest"></class>
+            <class name="OrderItemTest"/>
         </classes>
     </test>
 </suite>

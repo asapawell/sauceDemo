@@ -47,7 +47,7 @@ public class OrderItemTest extends Setup {
                 overviewPage
                         .clickOnFinish());
         step("Проверяем, что имеется заголовок \"THANK YOU FOR YOUR ORDER\"", () ->
-                Assert.assertEquals(finishPage.getCompleteHeader(), "THANK YOU FOR YOUR ORDER"));
+                Assert.assertEquals(finishPage.getCompleteHeader(), "THANK YOU FR YOUR ORDER"));
         step("Проверяем наличие картинки с логотипом PonyExpress", () ->
                 finishPage.getPonyExpressPicture().shouldBe(visible));
     }

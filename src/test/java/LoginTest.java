@@ -8,7 +8,6 @@ import ru.work.pages.ProductsPage;
 
 import static io.qameta.allure.Allure.step;
 import static org.testng.Assert.assertEquals;
-
 @Epic("Покупка товара")
 public class LoginTest extends Setup {
     ProductsPage productsPage = new ProductsPage();
