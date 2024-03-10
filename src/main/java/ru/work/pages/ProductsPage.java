@@ -2,9 +2,13 @@ package ru.work.pages;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
+import org.testng.Assert;
 import ru.work.models.Item;
 
 import static com.codeborne.selenide.Selenide.*;
+import static org.testng.Assert.assertEquals;
+import static ru.work.utils.Builder.backpack;
 
 public class ProductsPage {
     private final SelenideElement subTitle = $(".product_label");
@@ -74,4 +78,51 @@ public class ProductsPage {
     public String getChangedItemTextFromDataProvider(int index) {
         return removeFromCartButtons.get(index).getText();
     }
+
+    //Степы
+    @Step("Проверка успешного логина. Имеется заголовок Products")
+    public void checkSubtitle() {
+        assertEquals(this.getSubTitle(), "Products");
+    }
+
+    @Step("Проверка, что на странице Products, имеется 6 товаров")
+    public void checkCountOfItems() {
+        assertEquals(this.getCountOfItems(), 6);
+    }
+
+    @Step("Добавляем Рюкзак в корзину")
+    public void shouldAddItemToCart() {
+        this
+                .addItemToCart(backpack)
+                .clickOnShoppingCart();
+    }
+
+    @Step("Проверяем, что у товара Рюкзак кнопка Add to Cart поменялась на Remove")
+    public void checkChangeOfButton() {
+        Assert.assertEquals(this.getChangedItemText(), "REMOVE");
+    }
+
+    @Step("Проверяем, что у корзины появился счетчик и он равен количеству добавленных товаров (1)")
+    public void checkCountOfAddedItemsNearbyCart() {
+        Assert.assertEquals(this.getCountOfShoppingCartItems(), "1");
+    }
+
+    @Step("Добавить товар в корзину")
+    public void shouldAddWithDataProvider(int index) {
+        this
+                .addItemFromDataProvider(index)
+                .clickOnShoppingCart();
+    }
+
+    @Step("Проверяем, что у добавленного товара кнопка Add to Cart поменялась на Remove")
+    public void checkChangeOfButtonWithDP(int index) {
+        Assert.assertEquals(this.getChangedItemTextFromDataProvider(index), "REMOVE");
+    }
+
+    @Step("Проверяем, что у корзины появился счетчик и он равен количеству добавленных товаров {countOfAddedItems}")
+    public void checkCountOfAddedItemsNearbyCartWithDP(String countOfAddedItems) {
+        Assert.assertEquals(this.getCountOfShoppingCartItems(),
+                countOfAddedItems);
+    }
+
 }

@@ -12,12 +12,10 @@ import static ru.work.AppConfig.baseURL;
 public class Setup {
     public MainPage mainPage = new MainPage();
 
-    @BeforeMethod
+    @BeforeMethod(description = "Открываем стартовую страницу " + baseURL)
     public void init() {
-        step("Открываем стартовую страницу " + baseURL, () -> {
-            Configuration.browser = "firefox";
-            Configuration.browserSize = "1920x1080";
-            open(baseURL);
-        });
+        Configuration.browser = "firefox";
+        Configuration.browserSize = "1920x1080";
+        open(baseURL);
     }
 }

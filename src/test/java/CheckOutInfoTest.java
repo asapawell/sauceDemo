@@ -1,7 +1,6 @@
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -14,8 +13,7 @@ import ru.work.pages.YourInformationPage;
 
 import static io.qameta.allure.Allure.step;
 import static ru.work.utils.Builder.backpack;
-import static ru.work.utils.Builder.user;
-import static ru.work.models.Item.getFinalCostWithTax;
+
 
 @Epic("Покупка товара")
 public class CheckOutInfoTest extends Setup {
@@ -38,32 +36,21 @@ public class CheckOutInfoTest extends Setup {
     //вводим данные пользователя и проверяем, что попали на страницу Оформления заказа
     @Feature("Заполнение данных для отправки")
     @Story("Указание имени, фамилии, почтового индекса")
-    @Test(description = "Проверка заполнения обязательных полей",groups = "a")
+    @Test(description = "Проверка заполнения обязательных полей", groups = "a")
     public void setUserInfo() {
-        step("Нажимаем на кнопку Checkout", () ->
-                yourCartPage
-                        .clickOnCheckOutButton());
-        step("Заполняем имя, фамилию, почтовый индекс и нажимаем на кнопку Continue", () ->
-                yourInformationPage
-                        .setFirstName(user.getFirstName())
-                        .setLastName(user.getLastName())
-                        .setPostalCode(user.getPostalCode())
-                        .clickOnContinueButton());
-
-        step("Проверяем что попали на страницу с заголовком \"Checkout: Overview\"", () ->
-                Assert.assertEquals(overviewPage.getSubTitle(), "Checkout: Overview"));
-        step("Проверяем, что на странице имеется заказ " + overviewPage.getAddedItem(), () ->
-                Assert.assertEquals(overviewPage.getAddedItem(), "Sauce Labs Backpack"));
-        step("Проверяем, что стоимость товара без налога составляет " + backpack.getCost() + " " + "долларов",
-                () -> Assert.assertEquals(overviewPage.getItemTotalCost(), "$29.99"));
-        step("Проверяем что окончательная стоимость товара составляет " + getFinalCostWithTax(backpack),
-                () -> Assert.assertEquals(overviewPage.getItemTotalCostWithTax(),
-                        getFinalCostWithTax(backpack)));
+        yourCartPage.shouldOpenCheckOutOverviewPage();
+        yourInformationPage.shouldSetInfoAboutUser();
+        //проверки
+        overviewPage.checkOpeningOverviewPage();
+        overviewPage.checkAddedItem();
+        overviewPage.checkCostWithoutTax();
+        overviewPage.checkCostWithTax();
     }
+
     @AfterMethod(description = "После теста переходим в корзину, для удаления товаров")
-    public void toCart(){
-        step("Нажимаем на корзину",()->
-        overviewPage.clickOnCart());
+    public void toCart() {
+        step("Нажимаем на корзину", () ->
+                overviewPage.clickOnCart());
     }
 
     @AfterClass(description = "Очистка корзины")

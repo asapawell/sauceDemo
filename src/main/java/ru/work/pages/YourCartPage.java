@@ -2,6 +2,8 @@ package ru.work.pages;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
+import org.testng.Assert;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -32,5 +34,25 @@ public class YourCartPage {
         removeButton.forEach(SelenideElement::click);
     }
 
+    //Степы
+    @Step("Проверяем переход в корзину")
+    public void checkTheTransitionToTheShoppingCart() {
+        Assert.assertEquals(this.getTitleText(), "Your Cart");
+    }
 
+    @Step("Проверяем, что был добавлен товар с названием Sauce Labs Backpack")
+    public void checkItemInCart() {
+        Assert.assertEquals(this.getAddedItems(), "Sauce Labs Backpack");
+    }
+
+    @Step("Проверяем, что был добавлен товар с названием {addedItem}")
+    public void checkAddedItemsFromDataProvider(int index, String addedItem) {
+        Assert.assertEquals(this.getAddedItemsFromDataProvider(index), addedItem);
+    }
+
+    @Step("Нажимаем на кнопку Checkout")
+    public void shouldOpenCheckOutOverviewPage() {
+        this
+                .clickOnCheckOutButton();
+    }
 }

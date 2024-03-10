@@ -9,7 +9,6 @@ import org.testng.ITestResult;
 import ru.work.Setup;
 
 
-
 //Добавил Listener, чтобы скриншоты делались не только при падении селенидовских методов, но и при падении тест нг методов.
 public class CustomListener extends Setup implements ITestListener {
     @Override

@@ -1,6 +1,7 @@
 package ru.work.pages;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -20,5 +21,12 @@ public class MainPage {
     public void clickLogin(){
         loginButton.click();
     }
-
+    //Степы
+    @Step("Устанавливаем логин {userName} и пароль {password}, жмем на логин")
+    public void login (String userName, String password){
+        this
+                .setLogin(userName)
+                .setPassword(password)
+                .clickLogin();
+    }
 }

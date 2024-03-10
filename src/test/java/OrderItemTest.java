@@ -43,12 +43,16 @@ public class OrderItemTest extends Setup {
     @Story("Пользователь успешно оформил заказ")
     @Test(description = "Проверка, что заказ оформлен")
     public void finishOrdering() {
-        step("Нажимаем на кнопку Finish", () ->
-                overviewPage
-                        .clickOnFinish());
-        step("Проверяем, что имеется заголовок \"THANK YOU FOR YOUR ORDER\"", () ->
-                Assert.assertEquals(finishPage.getCompleteHeader(), "THANK YOU FR YOUR ORDER"));
-        step("Проверяем наличие картинки с логотипом PonyExpress", () ->
-                finishPage.getPonyExpressPicture().shouldBe(visible));
+//        step("Нажимаем на кнопку Finish", () ->
+//                overviewPage
+//                        .clickOnFinish());
+//        step("Проверяем, что имеется заголовок \"THANK YOU FOR YOUR ORDER\"", () ->
+//                Assert.assertEquals(finishPage.getCompleteHeader(), "THANK YOU FOR YOUR ORDER"));
+//        step("Проверяем наличие картинки с логотипом PonyExpress", () ->
+//                finishPage.getPonyExpressPicture().shouldBe(visible));
+        overviewPage.shouldClickOnFinish();
+        //проверки
+        finishPage.checkOpeningFinisPage();
+        finishPage.checkPonyExpressLogo();
     }
 }
